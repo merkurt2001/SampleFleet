@@ -31,4 +31,10 @@ public class VehicleGeneralInformationStepDefs {
     }
 
 
+    @Then("Edit, Delete, and Add Event button should be displayed")
+    public void editDeleteAndAddEventButtonShouldBeDisplayed() {
+        Assert.assertTrue(new GeneralInformationPage().editButton.isDisplayed());
+        Assert.assertTrue(new GeneralInformationPage().deleteButton.isDisplayed());
+        Assert.assertTrue(new GeneralInformationPage().addEventButton.isDisplayed());
+    }
 }
