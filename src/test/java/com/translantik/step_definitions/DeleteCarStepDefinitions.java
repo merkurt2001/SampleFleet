@@ -1,5 +1,6 @@
 package com.translantik.step_definitions;
 
+import com.translantik.pages.GeneralInformationPage;
 import com.translantik.pages.LoginPage;
 import com.translantik.pages.VehiclesPage;
 import com.translantik.utilities.BrowserUtils;
@@ -14,6 +15,8 @@ import org.junit.Assert;
 public class DeleteCarStepDefinitions {
 
     VehiclesPage vehiclesPage = new VehiclesPage();
+    GeneralInformationPage genInfoPage = new GeneralInformationPage();
+    String deletedCarInfo;
 
     @When("the user hovers over the three dots of row whose {string} equals {string}")
     public void theUserHoversOverTheThreeDotsOfRowWhoseEquals(String columnName, String value) {
@@ -46,6 +49,29 @@ public class DeleteCarStepDefinitions {
     public void theUserShouldDeleteTheCarAndMessageShouldBeDisplayed(String expectedMessage) {
         vehiclesPage.waitUntilLoaderScreenDisappear();
         String actualMessage = vehiclesPage.itemDeletedMessage.getText();
+        Assert.assertEquals("Message is NOT as expected",expectedMessage,actualMessage);
+    }
+
+    @When("the user clicks on a row whose {string} equals {string}")
+    public void theUserClicksOnARowWhoseEquals(String columnName, String value) {
+        deletedCarInfo = value;
+        vehiclesPage.selectPerPage(100);
+        vehiclesPage.waitUntilLoaderScreenDisappear();
+        vehiclesPage.selectRowWithAny(columnName,value).click();
+        vehiclesPage.waitUntilLoaderScreenDisappear();
+    }
+
+    @And("the user clicks on the delete button and Yes,Delete confirmation button on the General Information page")
+    public void theUserClicksOnTheDeleteButtonAndYesDeleteConfirmationButtonOnTheGeneralInformationPage() {
+        genInfoPage.waitUntilLoaderScreenDisappear();
+        genInfoPage.deleteButton.click();
+        genInfoPage.yesDeleteButton.click();
+        genInfoPage.waitUntilLoaderScreenDisappear();
+    }
+
+    @Then("the car is deleted and the {string} message should be displayed")
+    public void theCarIsDeletedAndTheMessageShouldBeDisplayed(String expectedMessage) {
+        String actualMessage = genInfoPage.carDeletedMessage.getText();
         Assert.assertEquals("Message is NOT as expected",expectedMessage,actualMessage);
     }
 }

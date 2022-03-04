@@ -34,7 +34,7 @@ public class VehiclesPage extends BasePage {
     }
 
     public WebElement selectRowWithAny(String head, String value){
-        String xpath = "//td[@class='number-cell grid-cell grid-body-cell grid-body-cell-"+head+"'][.='"+value+"']";
+        String xpath = "//td[contains(@class,'-cell grid-cell grid-body-cell grid-body-cell-"+head+"')][.='"+value+"']";
         return Driver.get().findElement(By.xpath(xpath));
     }
 
