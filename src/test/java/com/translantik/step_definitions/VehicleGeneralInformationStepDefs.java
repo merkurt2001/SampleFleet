@@ -12,11 +12,10 @@ public class VehicleGeneralInformationStepDefs {
         new VehiclesPage().selectAnyRowOfAllCarsTable(1);
     }
 
-    @Then("{string} page should be displayed")
-    public void page_should_be_displayed(String expectedTitle) {
+    @Then("the General Information page should be displayed")
+    public void theGeneralInformationPageShouldBeDisplayed() {
         String actualTitle = new GeneralInformationPage().pageTitle.getText();
-        Assert.assertEquals("General Information Page Title", expectedTitle, actualTitle);
-
+        Assert.assertEquals("General Information Page Title", "General Information", actualTitle);
     }
 
     @Then("the store manager clicks any three dot at the end of the row")
@@ -24,12 +23,10 @@ public class VehicleGeneralInformationStepDefs {
         new VehiclesPage().goThreeDot("ChassisNumber", "264,783");
     }
 
-
     @When("the store manager clicks on the Eye {string} icon")
     public void theStoreManagerClicksOnTheEyeIcon(String iconName) {
         new VehiclesPage().getThreeDotIcon(iconName).click();
     }
-
 
     @Then("Edit, Delete, and Add Event button should be displayed")
     public void editDeleteAndAddEventButtonShouldBeDisplayed() {
