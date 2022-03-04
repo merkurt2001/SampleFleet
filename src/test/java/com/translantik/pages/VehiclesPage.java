@@ -8,6 +8,8 @@ import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.List;
+
 public class VehiclesPage extends BasePage {
 
     @FindBy(xpath = "//button[@class='btn dropdown-toggle ']")
@@ -45,5 +47,9 @@ public class VehiclesPage extends BasePage {
     }
     public WebElement getThreeDotIcon(String iconName){
         return Driver.get().findElement(By.xpath("//ul[@class='dropdown-menu dropdown-menu__action-cell launchers-dropdown-menu detach dropdown-menu__floating']//a[@title='"+iconName+"']"));
+    }
+
+    public List<WebElement> getAllInfoOfRow(int rowNumber) {
+        return Driver.get().findElements(By.xpath("//tr[@class='grid-row row-click-action']["+rowNumber+"]//td"));
     }
 }
