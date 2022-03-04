@@ -28,6 +28,14 @@ public class VehiclesPage extends BasePage {
     @FindBy(xpath = "//div[@class='alert alert-success fade in top-messages ']/div[@class='message']")
     public WebElement itemDeletedMessage;
 
+    @FindBy(xpath = "//label[@class='dib'][3]")
+    public WebElement totalRecordsText;
+
+    public String getTotalRecords(){
+        String[] arr = totalRecordsText.getText().split(" ");
+        return arr[2];
+    }
+
     public void selectAnyRowOfAllCarsTable(int rowNum1to25) {
     BrowserUtils.waitForClickablility(Driver.get().findElement(By.xpath("//tr[@class='grid-row row-click-action']["+rowNum1to25+"]")),10);
     Driver.get().findElement(By.xpath("//tr[@class='grid-row row-click-action']["+rowNum1to25+"]")).click();

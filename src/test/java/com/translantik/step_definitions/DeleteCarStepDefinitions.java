@@ -16,10 +16,15 @@ public class DeleteCarStepDefinitions {
 
     VehiclesPage vehiclesPage = new VehiclesPage();
     GeneralInformationPage genInfoPage = new GeneralInformationPage();
-    String deletedCarInfo;
+    String deletedCarValue;
+    String recordsBeforeDelete;
+    String recordsAfterDelete;
+
 
     @When("the user hovers over the three dots of row whose {string} equals {string}")
     public void theUserHoversOverTheThreeDotsOfRowWhoseEquals(String columnName, String value) {
+        recordsBeforeDelete = vehiclesPage.getTotalRecords();
+        System.out.println("recordsBeforeDelete = " + recordsBeforeDelete);
         vehiclesPage.goThreeDot(columnName,value);
     }
 
@@ -43,6 +48,8 @@ public class DeleteCarStepDefinitions {
     public void theUserClicksOnTheYesDeleteConfirmationButton() {
         BrowserUtils.waitForVisibility(vehiclesPage.deleteConfirmation,5);
         vehiclesPage.yesDeleteButton.click();
+        vehiclesPage.waitUntilLoaderScreenDisappear();
+        recordsAfterDelete = vehiclesPage.getTotalRecords();
     }
 
     @Then("the user should delete the car and {string} message should be displayed")
@@ -50,11 +57,12 @@ public class DeleteCarStepDefinitions {
         vehiclesPage.waitUntilLoaderScreenDisappear();
         String actualMessage = vehiclesPage.itemDeletedMessage.getText();
         Assert.assertEquals("Message is NOT as expected",expectedMessage,actualMessage);
+        Assert.assertNotEquals("Records are SAME", recordsBeforeDelete,recordsAfterDelete);
     }
 
     @When("the user clicks on a row whose {string} equals {string}")
     public void theUserClicksOnARowWhoseEquals(String columnName, String value) {
-        deletedCarInfo = value;
+        deletedCarValue = value;
         vehiclesPage.selectPerPage(100);
         vehiclesPage.waitUntilLoaderScreenDisappear();
         vehiclesPage.selectRowWithAny(columnName,value).click();
@@ -73,5 +81,20 @@ public class DeleteCarStepDefinitions {
     public void theCarIsDeletedAndTheMessageShouldBeDisplayed(String expectedMessage) {
         String actualMessage = genInfoPage.carDeletedMessage.getText();
         Assert.assertEquals("Message is NOT as expected",expectedMessage,actualMessage);
+    }
+
+    @Then("the car can not be found in the car list")
+    public void theCarCanNotBeFoundInTheCarList() {
+        recordsAfterDelete = vehiclesPage.getTotalRecords();
+        vehiclesPage.selectPerPage(100);
+        String actualResult = "";
+        String expectedResult = "Not Found";
+        try {
+            vehiclesPage.selectRowWithAny("ChassisNumber",deletedCarValue);
+        }catch (Exception e){
+            actualResult = "Not Found";
+        }
+        Assert.assertNotEquals("Records are SAME",recordsBeforeDelete,recordsAfterDelete);
+        Assert.assertEquals(expectedResult,actualResult);
     }
 }
