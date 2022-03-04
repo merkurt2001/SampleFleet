@@ -3,6 +3,7 @@ package com.translantik.pages;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+<<<<<<< HEAD
 public class GeneralInformationPage extends BasePage{
 
     @FindBy(xpath = "//a[@title='Delete Car']/..")
@@ -16,4 +17,10 @@ public class GeneralInformationPage extends BasePage{
 
     @FindBy(css = ".message")
     public WebElement carDeletedMessage;
+=======
+public class GeneralInformationPage extends BasePage {
+
+    @FindBy(xpath = "//a[@title='Add an event to this record']")
+    public WebElement addEventButton;
+>>>>>>> master
 }
