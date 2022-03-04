@@ -2,12 +2,12 @@ Feature: Delete a car
 
   @AC1 @wip
   Scenario: The user should be able to see the delete button by hovering over the three dots at the end of each row
-    When the user hovers over the three dots of row whose "ChassisNumber" equals "117,317"
+    When the user hovers over the three dots of row whose "ChassisNumber" equals "926,648"
     Then the user should be able to see the delete button
 
   @AC2
   Scenario: "Delete Confirmation" pop up should be displayed when the user clicks on the delete button
-    When the user hovers over the three dots of row whose "ChassisNumber" equals "117,312"
+    When the user hovers over the three dots of row whose "ChassisNumber" equals "926,648"
     And the user clicks on the delete button
     Then The Delete Confirmation pop up should be displayed
 

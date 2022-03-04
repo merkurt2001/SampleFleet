@@ -56,7 +56,6 @@ public class VehiclesPage extends BasePage {
      * @param value
      */
     public void goThreeDot(String head,String value){
-        selectPerPage(100);
         String xpath = "//td[contains(@class,'-cell grid-cell grid-body-cell grid-body-cell-"+head+"')][.='"+value+"']/..//a/..";
         WebElement element = Driver.get().findElement(By.xpath(xpath));
         BrowserUtils.waitForClickablility(element,5);

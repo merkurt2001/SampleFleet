@@ -24,7 +24,8 @@ public class DeleteCarStepDefinitions {
     @When("the user hovers over the three dots of row whose {string} equals {string}")
     public void theUserHoversOverTheThreeDotsOfRowWhoseEquals(String columnName, String value) {
         recordsBeforeDelete = vehiclesPage.getTotalRecords();
-        System.out.println("recordsBeforeDelete = " + recordsBeforeDelete);
+        vehiclesPage.selectPerPage(100);
+        vehiclesPage.waitUntilLoaderScreenDisappear();
         vehiclesPage.goThreeDot(columnName,value);
     }
 
@@ -87,14 +88,8 @@ public class DeleteCarStepDefinitions {
     public void theCarCanNotBeFoundInTheCarList() {
         recordsAfterDelete = vehiclesPage.getTotalRecords();
         vehiclesPage.selectPerPage(100);
-        String actualResult = "";
-        String expectedResult = "Not Found";
-        try {
-            vehiclesPage.selectRowWithAny("ChassisNumber",deletedCarValue);
-        }catch (Exception e){
-            actualResult = "Not Found";
-        }
+        String pageSource = Driver.get().getPageSource();
         Assert.assertNotEquals("Records are SAME",recordsBeforeDelete,recordsAfterDelete);
-        Assert.assertEquals(expectedResult,actualResult);
+        Assert.assertFalse(pageSource.contains(deletedCarValue));
     }
 }
