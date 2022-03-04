@@ -18,4 +18,17 @@ public class VehicleGeneralInformationStepDefs {
         Assert.assertEquals("General Information Page Title", expectedTitle, actualTitle);
 
     }
+
+    @Then("the store manager clicks any three dot at the end of the row")
+    public void theStoreManagerClicksAnyThreeDotAtTheEndOfTheRow() {
+        new VehiclesPage().goThreeDot("ChassisNumber", "264,783");
+    }
+
+
+    @When("the store manager clicks on the Eye {string} icon")
+    public void theStoreManagerClicksOnTheEyeIcon(String iconName) {
+        new VehiclesPage().getThreeDotIcon(iconName).click();
+    }
+
+
 }
