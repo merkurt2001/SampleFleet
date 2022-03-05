@@ -2,23 +2,18 @@ package com.translantik.step_definitions;
 
 import com.translantik.pages.BasePage;
 import com.translantik.pages.Filters;
-import com.translantik.pages.LoginPage;
-import com.translantik.pages.VehiclesPage;
 import com.translantik.utilities.BrowserUtils;
-import com.translantik.utilities.Driver;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
 
-import java.util.List;
 
 public class FilterMenuStepDefs extends BasePage {
 
     Filters filters = new Filters();
-    Select select;
+    int flag;
 
     @Then("filter button is hidden")
     public void filter_button_is_hidden() {
@@ -35,14 +30,14 @@ public class FilterMenuStepDefs extends BasePage {
         Assert.assertTrue(filters.manageFiltersButton.isDisplayed());
     }
 
-    @When("the user click on manage filter button")
-    public void theUserClickOnManageFilterButton() {
+    @When("the user clicks on manage filter button")
+    public void theUserClicksOnManageFilterButton() {
         filters.manageFiltersButton.click();
     }
 
     @Then("all names under manage filters menu are clickable")
     public void allNamesUnderManageFiltersMenuAreClickable(){
-        for (WebElement filterType : filters.filterTypes) {
+        for (WebElement filterType : filters.filterNames) {
             Assert.assertTrue(filters.isClickable(filterType));
         }
     }
@@ -50,12 +45,27 @@ public class FilterMenuStepDefs extends BasePage {
     @Then("user enters filter name on the filter input box and corresponding name is displayed")
     public void userEntersFilterNameOnTheFilterInputBoxAndCorrespondingNameIsDisplayed() {
 
-        for (WebElement filterType : filters.filterTypes) {
+        for (WebElement filterType : filters.filterNames) {
             String name = filterType.getAttribute("title");
             filters.filterInputBox.sendKeys(name);
-            BrowserUtils.waitFor(2);
+            BrowserUtils.waitFor(1);
             Assert.assertTrue(filters.filterName(name).isDisplayed());
             filters.filterInputBox.clear();
         }
+    }
+
+    @And("the user clicks {int} filters")
+    public void theUserClicksFilters(int num) {
+        flag=num;
+        for (int i = 0; i < num; i++) {
+            String name = filters.filterNames.get(i).getAttribute("title");
+            filters.filterName(name).click();
+            BrowserUtils.waitFor(1);
+        }
+    }
+
+    @Then("filtered names are displayed on the filter menu place")
+    public void filteredNamesAreDisplayedOnTheFilterMenuPlace() {
+        Assert.assertEquals(flag,filters.filteredMenusLocations.size());
     }
 }

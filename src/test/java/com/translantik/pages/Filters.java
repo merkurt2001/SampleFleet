@@ -22,7 +22,10 @@ public class Filters extends BasePage{
     public WebElement filterInputBox;
 
     @FindBys({@FindBy(name = "multiselect_0")})
-    public List<WebElement> filterTypes;
+    public List<WebElement> filterNames;
+
+    @FindBys({@FindBy(xpath = "//div[@class='btn filter-criteria-selector oro-drop-opener oro-dropdown-toggle filter-default-value']")})
+    public List<WebElement> filteredMenusLocations;
 
     public WebElement filterName(String name){
        return Driver.get().findElement(By.xpath("//span[contains(text(),'"+name+"')]"));
