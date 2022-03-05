@@ -18,8 +18,11 @@ public class Filters extends BasePage{
     @FindBy(className = "add-filter-button")
     public WebElement manageFiltersButton;
 
-//    @FindBys({@FindBy(name = "multiselect_9")})
-//    public List<WebElement> filterTypes;
+    @FindBy(xpath = "//input[@type='search']")
+    public WebElement filterInputBox;
+
+    @FindBys({@FindBy(name = "multiselect_0")})
+    public List<WebElement> filterTypes;
 
     public WebElement filterName(String name){
        return Driver.get().findElement(By.xpath("//span[contains(text(),'"+name+"')]"));

@@ -14,25 +14,14 @@ Feature: As a store manager, I should be able to use the filter menu
     Given the user clicks on filter button
     When the user click on manage filter button
     Then all names under manage filters menu are clickable
-      | License Plate             |
-      | Tags                      |
-      | Driver                    |
-      | Location                  |
-      | Chassis Number            |
-      | Model Year                |
-      | Last Odometer             |
-      | Immatriculation Date      |
-      | First Contract Date       |
-      | Catalog Value (VAT Incl.) |
-      | Seats Number              |
-      | Doors Number              |
-      | Color                     |
-      | Transmission              |
-      | Fuel Type                 |
-      | CO2 Emissions             |
-      | Horsepower                |
-      | Horsepower Taxation       |
-      | Power (kW)                |
+
+  @TRANS-1213
+  Scenario: User can see the corresponding filter option after typing the filter name.
+    Given the user clicks on filter button
+    When the user click on manage filter button
+    Then user enters filter name on the filter input box and corresponding name is displayed
+
+
 
 
 

@@ -4,6 +4,7 @@ import com.translantik.pages.BasePage;
 import com.translantik.pages.Filters;
 import com.translantik.pages.LoginPage;
 import com.translantik.pages.VehiclesPage;
+import com.translantik.utilities.BrowserUtils;
 import com.translantik.utilities.Driver;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -40,13 +41,21 @@ public class FilterMenuStepDefs extends BasePage {
     }
 
     @Then("all names under manage filters menu are clickable")
-    public void allNamesUnderManageFiltersMenuAreClickable(List<String> names){
-        //Assert.assertTrue(filters.isClickable(filters.filterName("Power (kW)")));
-        for (String name : names) {
-            Assert.assertTrue(filters.isClickable(filters.filterName(name)));
+    public void allNamesUnderManageFiltersMenuAreClickable(){
+        for (WebElement filterType : filters.filterTypes) {
+            Assert.assertTrue(filters.isClickable(filterType));
         }
     }
 
+    @Then("user enters filter name on the filter input box and corresponding name is displayed")
+    public void userEntersFilterNameOnTheFilterInputBoxAndCorrespondingNameIsDisplayed() {
 
-
+        for (WebElement filterType : filters.filterTypes) {
+            String name = filterType.getAttribute("title");
+            filters.filterInputBox.sendKeys(name);
+            BrowserUtils.waitFor(2);
+            Assert.assertTrue(filters.filterName(name).isDisplayed());
+            filters.filterInputBox.clear();
+        }
+    }
 }
