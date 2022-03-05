@@ -2,11 +2,10 @@ package com.translantik.step_definitions;
 
 import com.translantik.pages.GeneralInformationPage;
 import com.translantik.pages.VehiclesPage;
-import com.translantik.utilities.BrowserUtils;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
-import org.openqa.selenium.WebElement;
+
 
 import java.util.List;
 
@@ -35,11 +34,13 @@ public class VehicleGeneralInformationStepDefs {
 
     @Then("Edit, Delete, and Add Event button should be displayed")
     public void editDeleteAndAddEventButtonShouldBeDisplayed() {
-        Assert.assertTrue(new GeneralInformationPage().editButton.isDisplayed());
-        Assert.assertTrue(new GeneralInformationPage().deleteButton.isDisplayed());
-        Assert.assertTrue(new GeneralInformationPage().addEventButton.isDisplayed());
+        Assert.assertTrue("Edit Button", new GeneralInformationPage().editButton.isDisplayed());
+        Assert.assertTrue("Delete Button", new GeneralInformationPage().deleteButton.isDisplayed());
+        Assert.assertTrue("Add Event Button", new GeneralInformationPage().addEventButton.isDisplayed());
     }
+
     List<String> allInfoOfVehiclePage;
+
     @Then("^check and store all information of (\\d+) .row")
     public void checkAndStoreAllInformationOfRowNumberRow(int rowNumber) {
         allInfoOfVehiclePage = new VehiclesPage().getAllInfoOfRow(rowNumber);
@@ -50,6 +51,6 @@ public class VehicleGeneralInformationStepDefs {
         List<String> allInfoOfGeneralInformationPage = new GeneralInformationPage().getAllInfo();
         System.out.println("allInfoOfVehiclePage = " + allInfoOfVehiclePage);
         System.out.println("allInfoOfGeneralInformationPage = " + allInfoOfGeneralInformationPage);
-        Assert.assertEquals(allInfoOfVehiclePage,allInfoOfGeneralInformationPage);
+        Assert.assertEquals("Compare All Info of 2 Pages", allInfoOfVehiclePage, allInfoOfGeneralInformationPage);
     }
 }
