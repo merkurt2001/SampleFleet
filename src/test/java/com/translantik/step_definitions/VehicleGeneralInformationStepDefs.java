@@ -42,8 +42,7 @@ public class VehicleGeneralInformationStepDefs {
     List<String> allInfoOfVehiclePage;
     @Then("^check and store all information of (\\d+) .row")
     public void checkAndStoreAllInformationOfRowNumberRow(int rowNumber) {
-        List<WebElement> allInfoOfRowVehiclePage;allInfoOfRowVehiclePage = new VehiclesPage().getAllInfoOfRow(rowNumber);
-        allInfoOfVehiclePage = BrowserUtils.getElementsText(allInfoOfRowVehiclePage);
+        allInfoOfVehiclePage = new VehiclesPage().getAllInfoOfRow(rowNumber);
     }
 
     @Then("verify the all information are all same for both pages")

@@ -21,11 +21,9 @@ public class GeneralInformationPage extends BasePage {
 
     public List<String> getAllInfo() {
         List<String> info = new ArrayList<>();
-        info.add("");
         for (int i = 1; i <20; i++) {
             info.add(Driver.get().findElement(By.xpath("(//div[@class='responsive-cell responsive-cell-no-blocks']//div[@class='control-label'])["+i+"]")).getText());
         }
-        info.add("...");
         return info;
     }
 }
