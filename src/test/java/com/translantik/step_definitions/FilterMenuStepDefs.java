@@ -68,4 +68,17 @@ public class FilterMenuStepDefs extends BasePage {
     public void filteredNamesAreDisplayedOnTheFilterMenuPlace() {
         Assert.assertEquals(flag,filters.filteredMenusLocations.size());
     }
+
+    @And("the user clicks reset button")
+    public void theUserClicksResetButton() {
+        filters.resetButton.click();
+        BrowserUtils.waitFor(1);
+    }
+
+    @Then("all filters are gone")
+    public void allFiltersAreGone() {
+        for (int i = 0; i < flag; i++) {
+            Assert.assertFalse(filters.filteredMenusLocations.get(i).isDisplayed());
+        }
+    }
 }

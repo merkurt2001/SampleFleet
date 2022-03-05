@@ -21,6 +21,9 @@ public class Filters extends BasePage{
     @FindBy(xpath = "//input[@type='search']")
     public WebElement filterInputBox;
 
+    @FindBy(xpath = "//a[@title='Reset']/i")
+    public WebElement resetButton;
+
     @FindBys({@FindBy(name = "multiselect_0")})
     public List<WebElement> filterNames;
 

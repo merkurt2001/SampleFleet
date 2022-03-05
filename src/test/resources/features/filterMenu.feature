@@ -28,6 +28,13 @@ Feature: As a store manager, I should be able to use the filter menu
     And the user clicks 5 filters
     Then filtered names are displayed on the filter menu place
 
+  @TRANS-1215
+  Scenario: User removes all filters by clicking on the reset icon.
+    Given the user clicks on filter button
+    When the user clicks on manage filter button
+    And the user clicks 5 filters
+    And the user clicks reset button
+    Then all filters are gone
 
 
 
