@@ -20,7 +20,6 @@ public class DeleteCarStepDefinitions {
     String recordsBeforeDelete;
     String recordsAfterDelete;
 
-
     @When("the user hovers over the three dots of row whose {string} equals {string}")
     public void theUserHoversOverTheThreeDotsOfRowWhoseEquals(String columnName, String value) {
         recordsBeforeDelete = vehiclesPage.getTotalRecords();
@@ -67,13 +66,13 @@ public class DeleteCarStepDefinitions {
         vehiclesPage.selectPerPage(100);
         vehiclesPage.waitUntilLoaderScreenDisappear();
         vehiclesPage.selectRowWithAny(columnName,value).click();
-        vehiclesPage.waitUntilLoaderScreenDisappear();
     }
 
     @And("the user clicks on the delete button and Yes,Delete confirmation button on the General Information page")
     public void theUserClicksOnTheDeleteButtonAndYesDeleteConfirmationButtonOnTheGeneralInformationPage() {
-        genInfoPage.waitUntilLoaderScreenDisappear();
+        BrowserUtils.waitForClickablility(genInfoPage.deleteButton,10);
         genInfoPage.deleteButton.click();
+        BrowserUtils.waitFor(1);
         genInfoPage.yesDeleteButton.click();
         genInfoPage.waitUntilLoaderScreenDisappear();
     }
