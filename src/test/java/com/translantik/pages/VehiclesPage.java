@@ -4,8 +4,12 @@ import com.translantik.utilities.BrowserUtils;
 import com.translantik.utilities.Driver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class VehiclesPage extends BasePage {
 
@@ -65,5 +69,22 @@ public class VehiclesPage extends BasePage {
     public void selectPerPage(int dataSize){
         viewPerPageButton.click();
         Driver.get().findElement(By.xpath("//a[@data-size='" + dataSize + "']")).click();
+    }
+    public WebElement getThreeDotIcon(String iconName){
+        return Driver.get().findElement(By.xpath("//ul[@class='dropdown-menu dropdown-menu__action-cell launchers-dropdown-menu detach dropdown-menu__floating']//a[@title='"+iconName+"']"));
+    }
+
+    public List<String> getAllInfoOfRow(int rowNumber) {
+        List<WebElement> getAllInfo = new ArrayList<>();
+        for (int i = 2; i < 21; i++) {
+            getAllInfo.add(Driver.get().findElement(By.xpath("//tr[@class='grid-row row-click-action']["+rowNumber+"]//td["+i+"]")));
+        }
+        List<String> elementsText = BrowserUtils.getElementsText(getAllInfo);
+        String noComma4 = elementsText.get(4).replaceAll(",","");
+        elementsText.set(4,noComma4);
+        String noComma6 = elementsText.get(6).replaceAll(",","");
+        elementsText.set(6,noComma6);
+
+        return elementsText;
     }
 }
