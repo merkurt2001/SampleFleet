@@ -8,11 +8,19 @@ import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class VehiclesPage extends BasePage {
+
+    @FindBy(xpath = "//label[@class='dib'][2]")
+    public WebElement lastPageNum;
+
+    @FindBy(css = "i[class='fa-chevron-right hide-text']")
+    public WebElement forwardPageArrow;
 
     @FindBy(xpath = "//input[@value='ChassisNumber']")
     public WebElement chassisNumberBox;
@@ -43,9 +51,6 @@ public class VehiclesPage extends BasePage {
 
     @FindBy (css = "[data-column-label='Chassis Number']")
     public List<WebElement> chassisNumResults;
-
-    @FindBy(css = "i[class='fa-chevron-right hide-text']")
-    public WebElement forwardPageArrow;
 
     @FindBy(xpath = "//button[@class='btn dropdown-toggle ']")
     public WebElement viewPerPageButton;
@@ -120,4 +125,19 @@ public class VehiclesPage extends BasePage {
 
         return elementsText;
     }
+
+    public boolean isClickable(WebElement webe)
+    {
+        try
+        {
+            WebDriverWait wait = new WebDriverWait(Driver.get(), 5);
+            wait.until(ExpectedConditions.elementToBeClickable(webe));
+            return true;
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
+    }
+
 }

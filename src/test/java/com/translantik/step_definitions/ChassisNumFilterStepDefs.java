@@ -16,6 +16,7 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ChassisNumFilterStepDefs {
 
@@ -23,7 +24,7 @@ public class ChassisNumFilterStepDefs {
 
     @When("the user clicks on Chassis Number checkbox")
     public void the_user_clicks_on_Chassis_Number_checkbox() {
-        BrowserUtils.waitForClickablility(vehiclesPage.chassisNumberBox,10);
+        BrowserUtils.waitForClickablility(vehiclesPage.chassisNumberBox, 10);
         vehiclesPage.chassisNumberBox.click();
         BrowserUtils.waitFor(2);
     }
@@ -35,7 +36,7 @@ public class ChassisNumFilterStepDefs {
 
     @And("the user clicks on Chassis Number All button")
     public void theUserClicksOnChassisNumberAllButton() {
-        BrowserUtils.waitForClickablility(vehiclesPage.chassisNumberAllButton,10);
+        BrowserUtils.waitForClickablility(vehiclesPage.chassisNumberAllButton, 10);
         vehiclesPage.chassisNumberAllButton.click();
         BrowserUtils.waitFor(1);
     }
@@ -59,7 +60,7 @@ public class ChassisNumFilterStepDefs {
         System.out.println("actualChassisOptions.get(1) = " + actualChassisOptions.get(1));
         System.out.println("menuOptions = " + menuOptions);
 
-        Assert.assertEquals(null,menuOptions,actualChassisOptions);
+        Assert.assertEquals(null, menuOptions, actualChassisOptions);
 
     }
 
@@ -82,20 +83,55 @@ public class ChassisNumFilterStepDefs {
 
     @Then("the results should be more than specified value")
     public void theResultsShouldBeMoreThanSpecifiedValue() {
+        List<String> chassisNumResList = new ArrayList<>();
 
-        List<String> chassisNumResList = BrowserUtils.getElementsText(vehiclesPage.chassisNumResults);
+        int i = 1;
+        String lastPageStr;
+        int lastPageAsNum;
 
-        System.out.println("chassisNumResList.size() = " + chassisNumResList.size());
-        System.out.println("chassisNumResList = " + chassisNumResList);
+        do {
+            if (i == 1) {
+                chassisNumResList = BrowserUtils.getElementsText(vehiclesPage.chassisNumResults);
+            }
+            if (i > 1) {
+                BrowserUtils.waitFor(3);
+                vehiclesPage.forwardPageArrow.click();
 
-        BrowserUtils.waitForClickablility(vehiclesPage.forwardPageArrow,10);
+                BrowserUtils.waitFor(3);
+                List<String> chassisNumResList_Temp = BrowserUtils.getElementsText(vehiclesPage.chassisNumResults);
 
-        if(ExpectedConditions.elementToBeClickable(vehiclesPage.forwardPageArrow)==vehiclesPage.forwardPageArrow) {
-            System.out.println("forward paga arrow is clickable");
-        }else{
-                System.out.println("forward page arrow is NOT clickable");
-            };
+                chassisNumResList.addAll(chassisNumResList_Temp);
+            }
+             i++;
 
-        };
+            lastPageStr = vehiclesPage.lastPageNum.getText().split(" ")[1];
+            lastPageAsNum = Integer.parseInt(lastPageStr);
 
+        } while (i <= lastPageAsNum);
+
+        List<String> result = new ArrayList<>();
+        for (String s : chassisNumResList) {
+            result.add(s.replaceAll(",", ""));
+        }
+
+        //Below line and for loop converts result List<String> to chassisNumAsNum List<Integer>
+        List<Integer> chassisNumAsNum = new ArrayList<>();
+        for (String str : result) {
+            chassisNumAsNum.add(Integer.parseInt(str));
+        }
+
+        System.out.println("chassisNumAsNum.size() = " + chassisNumAsNum.size());
+        System.out.println("chassisNumAsNum = " + chassisNumAsNum);
+
+        int userEnteredValue = Integer.parseInt(ConfigurationReader.get("moreThanChassisNumber"));
+        boolean flag = true;
+        for (Integer integer : chassisNumAsNum) {
+            if (integer <= userEnteredValue) {
+                flag = false;
+                break;
+            }
+        }
+        Assert.assertTrue(flag);
     }
+
+}
