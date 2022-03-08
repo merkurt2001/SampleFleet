@@ -44,4 +44,14 @@ public class DriverFilterStepDefs extends BasePage {
         Assert.assertEquals(methodNames,actualMethods);
     }
 
+    @When("the user writes the {string} keyword to Contains method input box and click update button")
+    public void the_user_writes_the_keyword_to_method_input_box_and_click_update_button(String keyword) {
+            //metod yazılacak
+    }
+
+    @Then("the results should contain the {string} keyword")
+    public void the_results_should_contain_the_keyword(String string) {
+        //metod yazılacak
+    }
+
 }
