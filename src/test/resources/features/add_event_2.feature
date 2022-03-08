@@ -2,7 +2,7 @@ Feature: US-006 Add Event-2-As a store manager, user should be able to add an ev
 
   Background:
     Given the user is on the add event pop up
-@US006 @AC1
+  @US006 @AC1
   Scenario: AC-1 User can mark the event with any color at the "Add Event" pop up
     Then the user should be able to click on any color
   @US006 @AC2
