@@ -50,13 +50,37 @@ public class VehiclesPage extends BasePage {
     @FindBy(xpath = "//button[@class='btn dropdown-toggle ']")
     public WebElement viewPerPageButton;
 
+    @FindBy(xpath = "//ul[@class='dropdown-menu dropdown-menu__action-cell launchers-dropdown-menu detach dropdown-menu__floating']" +
+            "//li[@class='launcher-item'][3]")
+    public WebElement deleteButton;
+
+    @FindBy(xpath = "//div[@class='modal oro-modal-danger in']")
+    public WebElement deleteConfirmation;
+
+    @FindBy(css = ".btn.cancel")
+    public WebElement cancelButton;
+
+    @FindBy(css = ".btn.ok.btn-danger")
+    public WebElement yesDeleteButton;
+
+    @FindBy(xpath = "//div[@class='alert alert-success fade in top-messages ']/div[@class='message']")
+    public WebElement itemDeletedMessage;
+
+    @FindBy(xpath = "//label[@class='dib'][3]")
+    public WebElement totalRecordsText;
+
+    public String getTotalRecords(){
+        String[] arr = totalRecordsText.getText().split(" ");
+        return arr[2];
+    }
+
     public void selectAnyRowOfAllCarsTable(int rowNum1to25) {
     BrowserUtils.waitForClickablility(Driver.get().findElement(By.xpath("//tr[@class='grid-row row-click-action']["+rowNum1to25+"]")),10);
     Driver.get().findElement(By.xpath("//tr[@class='grid-row row-click-action']["+rowNum1to25+"]")).click();
-}
+    }
 
     public WebElement selectRowWithAny(String head, String value){
-        String xpath = "//td[@class='number-cell grid-cell grid-body-cell grid-body-cell-"+head+"'][.='"+value+"']";
+        String xpath = "//td[contains(@class,'-cell grid-cell grid-body-cell grid-body-cell-"+head+"')][.='"+value+"']";
         return Driver.get().findElement(By.xpath(xpath));
     }
 

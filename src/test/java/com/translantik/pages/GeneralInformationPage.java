@@ -18,6 +18,12 @@ public class GeneralInformationPage extends BasePage {
     public WebElement deleteButton;
     @FindBy(xpath = "//a[@title='Add an event to this record']")
     public WebElement addEventButton;
+    @FindBy(css = ".btn.cancel")
+    public WebElement cancelButton;
+    @FindBy(css = ".btn.ok.btn-danger")
+    public WebElement yesDeleteButton;
+    @FindBy(css = ".message")
+    public WebElement carDeletedMessage;
 
     public List<String> getAllInfo() {
         List<String> info = new ArrayList<>();
