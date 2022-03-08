@@ -31,7 +31,7 @@ public class Filters extends BasePage{
     public List<WebElement> filteredMenusLocations;
 
     public WebElement filterName(String name){
-       return Driver.get().findElement(By.xpath("//span[contains(text(),'"+name+"')]"));
+       return Driver.get().findElement(By.xpath("//span[contains(text(),'"+name+"')]/../input"));
     }
 
     public boolean isClickable(WebElement element) {

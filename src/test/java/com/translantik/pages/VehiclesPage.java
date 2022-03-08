@@ -35,6 +35,18 @@ public class VehiclesPage extends BasePage {
     @FindBy(xpath = "//label[@class='dib'][3]")
     public WebElement totalRecordsText;
 
+    @FindBy (xpath = "//b")
+    public WebElement filterCriteriaSelector; //her filtre seçildiğinde çıkan yanında All yazan filtre (Selçuk)
+
+    //filtrede çıkan metod isimleri (Selçuk)
+    @FindBy(css = ".dropdown-item.choice-value")
+    public List<WebElement> methods;
+
+    //her filtrede default olarak çıkan metod(Selçuk)
+    public WebElement defaultMethodOfTheFilter(String name){
+        return Driver.get().findElement(By.xpath("//button[contains(text(),'"+name+"')]"));
+    }
+
     public String getTotalRecords(){
         String[] arr = totalRecordsText.getText().split(" ");
         return arr[2];
