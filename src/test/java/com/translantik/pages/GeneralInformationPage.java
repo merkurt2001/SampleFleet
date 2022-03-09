@@ -24,6 +24,8 @@ public class GeneralInformationPage extends BasePage {
     public WebElement yesDeleteButton;
     @FindBy(css = ".message")
     public WebElement carDeletedMessage;
+    @FindBy (xpath = "//div[@class='message-item message']")
+    public List<WebElement> titlesOfEvents;
 
     public List<String> getAllInfo() {
         List<String> info = new ArrayList<>();
