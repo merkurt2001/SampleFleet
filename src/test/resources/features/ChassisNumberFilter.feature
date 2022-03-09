@@ -27,7 +27,7 @@ Feature: The user can use the "Chassis Number" filter under the 'All Car' page
       | Is Empty            |
       | Is Not Empty        |
 
-  @US10_AC2
+  @US10_AC5
     Scenario: When the user selects the "More than" method with numeric values, the results should be more than the specified value
       When the user clicks on filter button
       And the user clicks on manage filter button
