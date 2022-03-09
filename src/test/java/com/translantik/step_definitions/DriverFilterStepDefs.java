@@ -18,42 +18,48 @@ public class DriverFilterStepDefs extends BasePage {
 
     @When("the user clicks on {string} filter")
     public void theUserClicksOnFilter(String filterName) {
+        vehiclesPage.waitUntilLoaderScreenDisappear();
         filters.filterName(filterName).click();
 
     }
 
     @Then("the {string} filter should be selected")
     public void theFilterShouldBeSelected(String filterName) {
-        BrowserUtils.waitFor(2);
+        BrowserUtils.waitFor(3);
         Assert.assertTrue(filters.filterName(filterName).isSelected());
     }
 
     @When("the user clicks on {string} button")
     public void the_user_clicks_on_button(String criteriaAll) {
+        BrowserUtils.waitFor(3);
         vehiclesPage.filterCriteriaSelector.click();
     }
 
 
     @When("the user clicks on default dropdown of the {string} filter which is {string} dropdown")
     public void the_user_clicks_on_default_dropdown_of_the_filter_which_is_dropdown(String string, String defaultMethodOfTheFilter) {
+        vehiclesPage.waitUntilLoaderScreenDisappear();
         vehiclesPage.defaultMethodOfTheFilter(defaultMethodOfTheFilter).click();
     }
 
     @Given("the user clicks on {string} dropdown")
     public void the_user_clicks_on_dropdown(String subMethodName) {
+        vehiclesPage.waitUntilLoaderScreenDisappear();
         vehiclesPage.subMethodsOfTheFilter(subMethodName).click();
     }
 
     @Then("the Methods should be seen as below")
     public void the_Methods_should_be_seen_as_below(List<String> methodNames) {
-
+        BrowserUtils.waitFor(1);
         List<String> actualMethods = BrowserUtils.getElementsText(vehiclesPage.methods);
         Assert.assertEquals(methodNames, actualMethods);
     }
 
     @When("the user writes the {string} keyword to {string} method input box and click update button")
     public void the_user_writes_the_keyword_to_method_input_box_and_click_update_button(String keyword, String method) {
+        vehiclesPage.waitUntilLoaderScreenDisappear();
         vehiclesPage.filterInputbox.sendKeys(keyword);
+        BrowserUtils.waitFor(1);
         vehiclesPage.filterUpdateButton.click();
         /*vehiclesPage.viewPerPageButton.click();
         vehiclesPage.selectPerPage(100);*/
