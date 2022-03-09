@@ -2,10 +2,12 @@ package com.translantik.step_definitions;
 
 import com.translantik.pages.BasePage;
 import com.translantik.pages.Filters;
+import com.translantik.pages.VehiclesPage;
 import com.translantik.utilities.BrowserUtils;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.cucumber.java.tr.Ve;
 import org.junit.Assert;
 import org.openqa.selenium.WebElement;
 
@@ -22,6 +24,7 @@ public class FilterMenuStepDefs extends BasePage {
 
     @When("the user clicks on filter button")
     public void theUserClicksOnFilterButton() {
+        BrowserUtils.waitForClickablility(filters.filtersButton,10);
         filters.filtersButton.click();
     }
 
@@ -36,7 +39,7 @@ public class FilterMenuStepDefs extends BasePage {
     }
 
     @Then("all names under manage filters menu are clickable")
-    public void allNamesUnderManageFiltersMenuAreClickable(){
+    public void allNamesUnderManageFiltersMenuAreClickable() {
         for (WebElement filterType : filters.filterNames) {
             Assert.assertTrue(filters.isClickable(filterType));
         }
@@ -56,7 +59,7 @@ public class FilterMenuStepDefs extends BasePage {
 
     @And("the user clicks {int} filters")
     public void theUserClicksFilters(int num) {
-        flag=num;
+        flag = num;
         for (int i = 0; i < num; i++) {
             String name = filters.filterNames.get(i).getAttribute("title");
             filters.filterName(name).click();
@@ -66,7 +69,7 @@ public class FilterMenuStepDefs extends BasePage {
 
     @Then("filtered names are displayed on the filter menu place")
     public void filteredNamesAreDisplayedOnTheFilterMenuPlace() {
-        Assert.assertEquals(flag,filters.filteredMenusLocations.size());
+        Assert.assertEquals(flag, filters.filteredMenusLocations.size());
     }
 
     @And("the user clicks reset button")

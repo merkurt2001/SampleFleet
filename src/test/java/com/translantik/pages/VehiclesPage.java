@@ -7,11 +7,50 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.FindBys;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class VehiclesPage extends BasePage {
+
+    @FindBy(xpath = "//label[@class='dib'][2]")
+    public WebElement lastPageNum;
+
+    @FindBy(css = "i[class='fa-chevron-right hide-text']")
+    public WebElement forwardPageArrow;
+
+    @FindBy(xpath = "//input[@value='ChassisNumber']")
+    public WebElement chassisNumberBox;
+
+    @FindBy(xpath = "//div[@class='btn filter-criteria-selector oro-drop-opener oro-dropdown-toggle filter-default-value']")
+    public WebElement chassisNumberAllButton;
+
+    @FindBy(xpath = "//button[@class='btn dropdown-toggle']")
+    public WebElement chassisDropdownMenu;
+
+    @FindBy(xpath = "(//ul[@class='dropdown-menu'])[5]")
+    public List<WebElement> chassisDDMenuOptions;
+
+    @FindBy(css = "a.dropdown-item.choice-value")
+    public List<WebElement> chassisDDMenuOpts;
+
+    @FindBys({@FindBy(xpath = "//a[@class='dropdown-item choice-value']")})
+    public List<WebElement> chassisDropdownMenuElements;
+
+    @FindBy (css = "a[data-value='2']")
+    public WebElement moreThanButton;
+
+    @FindBy(xpath = "(//input[@type='text'])[2]")
+    public WebElement inputBox;
+
+    @FindBy(css = "button[class='btn btn-primary filter-update']")
+    public WebElement updateButton;
+
+    @FindBy (css = "[data-column-label='Chassis Number']")
+    public List<WebElement> chassisNumResults;
 
     @FindBy(xpath = "//button[@class='btn dropdown-toggle ']")
     public WebElement viewPerPageButton;
@@ -50,7 +89,6 @@ public class VehiclesPage extends BasePage {
         return Driver.get().findElement(By.xpath(xpath));
     }
 
-
     /**
      * This method will click on three dot of a row depend on specific head and value param in translantik application.
      * For example: if head is equals to ChassisNumber, and value equals to 123,325,
@@ -87,4 +125,19 @@ public class VehiclesPage extends BasePage {
 
         return elementsText;
     }
+
+    public boolean isClickable(WebElement webe)
+    {
+        try
+        {
+            WebDriverWait wait = new WebDriverWait(Driver.get(), 5);
+            wait.until(ExpectedConditions.elementToBeClickable(webe));
+            return true;
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
+    }
+
 }
