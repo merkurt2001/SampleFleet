@@ -1,3 +1,4 @@
+@driver
 Feature: As a store manager, I should be able to use the "Driver" filter under the Fleet-Vehicles page
 
   Background:User can select "Driver" filter under 'Fleet-Vehicles' module
@@ -7,9 +8,10 @@ Feature: As a store manager, I should be able to use the "Driver" filter under t
     And the "Driver" filter should be selected
     Then the user clicks on "Driver:All" button
 
+
   @US11_AC2
   Scenario: "Driver" filter should provide the methods shown as below in the examples
-    When the user clicks on "contains" dropdown
+    When the user clicks on default dropdown of the "Driver" filter which is "contains" dropdown
     Then the Methods should be seen as below
       | Contains         |
       | Does Not Contain |
@@ -23,5 +25,27 @@ Feature: As a store manager, I should be able to use the "Driver" filter under t
 
   @US11_AC3
   Scenario: "Contains" method should give the results that contain the specified keyword
-  When the user writes the "miss" keyword to Contains method input box and click update button
-  Then the results should contain the "miss" keyword
+    Given the user clicks on default dropdown of the "Driver" filter which is "contains" dropdown
+    When the user writes the "miss" keyword to "Contains" method input box and click update button
+    Then the results should contain the "miss" keyword
+
+  @US11_AC4
+  Scenario: "Does Not Contain" method should give the results that does not contain the specified keyword
+    Given the user clicks on default dropdown of the "Driver" filter which is "contains" dropdown
+    And the user clicks on "does not contain" dropdown
+    And the user writes the "miss" keyword to "does not contain" method input box and click update button
+    Then the results should not contain the "miss" keyword
+
+  @US11_AC5
+  Scenario: "Starts With" method should give the results that starts with the specified keyword
+    Given the user clicks on default dropdown of the "Driver" filter which is "contains" dropdown
+    And the user clicks on "starts with" dropdown
+    And the user writes the "ma" keyword to "starts with" method input box and click update button
+    Then the results should start with the "ma" keyword
+
+  @US11_AC6
+  Scenario: "Ends With" method should give the results that ends with the specified keyword
+    Given the user clicks on default dropdown of the "Driver" filter which is "contains" dropdown
+    And the user clicks on "ends with" dropdown
+    And the user writes the "er" keyword to "ends with" method input box and click update button
+    Then the results should end with the "er" keyword

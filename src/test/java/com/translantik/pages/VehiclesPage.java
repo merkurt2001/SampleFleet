@@ -47,10 +47,31 @@ public class VehiclesPage extends BasePage {
         return Driver.get().findElement(By.xpath("//button[contains(text(),'"+name+"')]"));
     }
 
+    //contains filtresi input box (Selçuk)
+    @FindBy(xpath = "//input[@name='value']")
+    public WebElement filterInputbox;
+
+    //contains filtresi update (Selçuk)
+    @FindBy(xpath = "//button[contains(text(),'Update')]")
+    public WebElement filterUpdateButton;
+
+    //Driver column da yer alanlar (Selçuk)
+    @FindBy(xpath = "//td[@data-column-label='Driver']")
+    public List<WebElement> columnText;
+
+    //her filtrenin altında çıkan metodlar
+    public WebElement subMethodsOfTheFilter(String subMethodName){
+        return Driver.get().findElement(By.xpath("//a[contains(text(),'"+subMethodName+"')]"));
+    }
+
+
     public String getTotalRecords(){
         String[] arr = totalRecordsText.getText().split(" ");
         return arr[2];
     }
+
+
+
 
     public void selectAnyRowOfAllCarsTable(int rowNum1to25) {
     BrowserUtils.waitForClickablility(Driver.get().findElement(By.xpath("//tr[@class='grid-row row-click-action']["+rowNum1to25+"]")),10);

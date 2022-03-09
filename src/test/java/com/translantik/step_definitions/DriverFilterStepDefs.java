@@ -4,15 +4,17 @@ import com.translantik.pages.BasePage;
 import com.translantik.pages.Filters;
 import com.translantik.pages.VehiclesPage;
 import com.translantik.utilities.BrowserUtils;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
 public class DriverFilterStepDefs extends BasePage {
     Filters filters = new Filters();
-    VehiclesPage vehiclesPage=new VehiclesPage();
+    VehiclesPage vehiclesPage = new VehiclesPage();
 
     @When("the user clicks on {string} filter")
     public void theUserClicksOnFilter(String filterName) {
@@ -31,27 +33,84 @@ public class DriverFilterStepDefs extends BasePage {
         vehiclesPage.filterCriteriaSelector.click();
     }
 
-    @When("the user clicks on {string} dropdown")
-    public void the_user_clicks_on_dropdown(String defaultMethodOfTheFilter) {
-        vehiclesPage.defaultMethodOfTheFilter(defaultMethodOfTheFilter).click();
 
+    @When("the user clicks on default dropdown of the {string} filter which is {string} dropdown")
+    public void the_user_clicks_on_default_dropdown_of_the_filter_which_is_dropdown(String string, String defaultMethodOfTheFilter) {
+        vehiclesPage.defaultMethodOfTheFilter(defaultMethodOfTheFilter).click();
+    }
+
+    @Given("the user clicks on {string} dropdown")
+    public void the_user_clicks_on_dropdown(String subMethodName) {
+        vehiclesPage.subMethodsOfTheFilter(subMethodName).click();
     }
 
     @Then("the Methods should be seen as below")
     public void the_Methods_should_be_seen_as_below(List<String> methodNames) {
 
         List<String> actualMethods = BrowserUtils.getElementsText(vehiclesPage.methods);
-        Assert.assertEquals(methodNames,actualMethods);
+        Assert.assertEquals(methodNames, actualMethods);
     }
 
-    @When("the user writes the {string} keyword to Contains method input box and click update button")
-    public void the_user_writes_the_keyword_to_method_input_box_and_click_update_button(String keyword) {
-            //metod yazılacak
+    @When("the user writes the {string} keyword to {string} method input box and click update button")
+    public void the_user_writes_the_keyword_to_method_input_box_and_click_update_button(String keyword, String method) {
+        vehiclesPage.filterInputbox.sendKeys(keyword);
+        vehiclesPage.filterUpdateButton.click();
+        /*vehiclesPage.viewPerPageButton.click();
+        vehiclesPage.selectPerPage(100);*/
+
+
     }
 
     @Then("the results should contain the {string} keyword")
-    public void the_results_should_contain_the_keyword(String string) {
-        //metod yazılacak
+    public void the_results_should_contain_the_keyword(String keyword) {
+        BrowserUtils.waitFor(2);
+        List<String> columnText = BrowserUtils.getElementsText(vehiclesPage.columnText);
+
+        for (String s : columnText) {
+            Assert.assertTrue(s.toLowerCase().contains(keyword.toLowerCase()));
+            {
+            }
+        }
+
     }
 
+    @Then("the results should not contain the {string} keyword")
+    public void the_results_should_not_contain_the_keyword(String keyword) {
+        BrowserUtils.waitFor(2);
+        List<String> columnText = BrowserUtils.getElementsText(vehiclesPage.columnText);
+
+        for (String s : columnText) {
+            Assert.assertFalse(s.toLowerCase().contains(keyword.toLowerCase()));
+            {
+            }
+        }
+    }
+
+    @Then("the results should start with the {string} keyword")
+    public void the_results_should_start_with_the_keyword(String keyword) {
+        BrowserUtils.waitFor(2);
+        List<String> columnText = BrowserUtils.getElementsText(vehiclesPage.columnText);
+
+        System.out.println("columnText = " + columnText);
+
+        for (String s : columnText) {
+            Assert.assertTrue(s.toLowerCase().startsWith(keyword.toLowerCase()));
+            {
+            }
+        }
+    }
+
+    @Then("the results should end with the {string} keyword")
+    public void the_results_should_end_with_the_keyword(String keyword) {
+        BrowserUtils.waitFor(2);
+        List<String> columnText = BrowserUtils.getElementsText(vehiclesPage.columnText);
+
+        System.out.println("columnText = " + columnText);
+
+        for (String s : columnText) {
+            Assert.assertTrue(s.toLowerCase().endsWith(keyword.toLowerCase()));
+            {
+            }
+        }
+    }
 }
