@@ -1,7 +1,7 @@
 @driver
 Feature: As a store manager, I should be able to use the "Driver" filter under the Fleet-Vehicles page
 
-  Background:the user clicks on "Driver" filter under 'Fleet-Vehicles' module
+  Background:the user clicks on "Driver" filter under Fleet-Vehicles module
     When the user clicks on "Driver" filter under Fleet-Vehicles module
 
   @US11_AC1 @TRANS-1233
