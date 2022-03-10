@@ -18,13 +18,14 @@ public class DriverFilterStepDefs extends BasePage {
 
     @When("the user clicks on {string} filter under Fleet-Vehicles module")
     public void the_user_clicks_on_filter_under_module(String filterName) {
+
         BrowserUtils.waitForClickablility(filters.filtersButton,10);
 
         filters.filtersButton.click();
         filters.manageFiltersButton.click();
 
         vehiclesPage.waitUntilLoaderScreenDisappear();
-        filters.filterName(filterName).click();
+        filters.filterNames(filterName).click();
     }
 
     @When("the user clicks on {string} filter")
