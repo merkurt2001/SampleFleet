@@ -34,6 +34,11 @@ public class Filters extends BasePage{
        return Driver.get().findElement(By.xpath("//span[contains(text(),'"+name+"')]/../input"));
     }
 
+    public WebElement filterNames(String name){
+        return Driver.get().findElement(By.xpath("//input[@value='"+name+"']"));
+    }
+
+
     public boolean isClickable(WebElement element) {
         try {
             WebDriverWait wait = new WebDriverWait(Driver.get(), 5);
