@@ -2,6 +2,8 @@ package com.translantik.pages;
 
 import com.translantik.utilities.Driver;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -61,8 +63,27 @@ public class AddEventPopUpPage extends BasePage{
     @FindBy (xpath = "//button[@type='submit']")
     public WebElement saveButton;
 
+    @FindBy(xpath = "//a[@title='Add an event to this record']")
+    public WebElement addEventButton;
+
+    @FindBy(xpath = "(//div[@class='message'])[1]")
+    public WebElement calendarEventSaved;
+
+
     public void closePopUp (){
         Driver.get().findElement(By.xpath("//button[@title='close']")).click();
+    }
+
+    public boolean sendWithOnlyOneInput(String input){
+        Driver.get().findElement(By.xpath("//input[@required]")).sendKeys(input);
+        saveButton.click();
+        try {
+            Thread.sleep(2000);
+            Driver.get().findElement(By.className("validation-failed"));
+        } catch (NoSuchElementException | InterruptedException e){
+            return false;
+        }
+        return true;
     }
 
 
