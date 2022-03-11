@@ -56,7 +56,7 @@ public abstract class BasePage {
      */
     public void waitUntilLoaderScreenDisappear() {
         try {
-            WebDriverWait wait = new WebDriverWait(Driver.get(), 5);
+            WebDriverWait wait = new WebDriverWait(Driver.get(), 10);
             wait.until(ExpectedConditions.invisibilityOf(loaderMask));
         } catch (Exception e) {
             e.printStackTrace();
@@ -65,7 +65,7 @@ public abstract class BasePage {
 
     public String getUserName(){
         waitUntilLoaderScreenDisappear();
-        BrowserUtils.waitForVisibility(userName, 5);
+        BrowserUtils.waitForVisibility(userName, 10);
         return userName.getText();
     }
 
