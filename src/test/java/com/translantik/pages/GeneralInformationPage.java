@@ -16,8 +16,10 @@ public class GeneralInformationPage extends BasePage {
     public WebElement editButton;
     @FindBy(xpath = "//a[@title='Delete Car']")
     public WebElement deleteButton;
+
     @FindBy(xpath = "//a[@title='Add an event to this record']")
     public WebElement addEventButton;
+
     @FindBy(css = ".btn.cancel")
     public WebElement cancelButton;
     @FindBy(css = ".btn.ok.btn-danger")

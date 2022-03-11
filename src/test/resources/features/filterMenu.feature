@@ -1,4 +1,4 @@
-@wip
+
 Feature: As a store manager, I should be able to use the filter menu
 
   @TRANS-1204

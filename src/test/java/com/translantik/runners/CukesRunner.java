@@ -14,6 +14,7 @@ import org.junit.runner.RunWith;
         glue = "com.translantik.step_definitions",
         dryRun = false,
         tags = "@TRANS-1249"
+
 )
 public class CukesRunner {
 }
