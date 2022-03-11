@@ -25,7 +25,7 @@ public class DriverFilterStepDefs extends BasePage {
         filters.manageFiltersButton.click();
 
         vehiclesPage.waitUntilLoaderScreenDisappear();
-        filters.filterName(filterName).click();
+        filters.filterNames(filterName).click();
     }
 
     @When("the user clicks on {string} filter")
