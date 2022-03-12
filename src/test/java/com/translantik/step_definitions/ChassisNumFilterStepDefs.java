@@ -49,7 +49,7 @@ public class ChassisNumFilterStepDefs {
         BrowserUtils.waitFor(2);
     }
 
-    @Then("Chassis Number\" filter should provide the methods shown as below")
+    @Then("Chassis Number filter should provide the methods shown as below")
     public void chassisNumberFilterShouldProvideTheMethodsShownAsBelow(List<String> menuOptions) throws Throwable {
         BrowserUtils.waitFor(3);
 //        List<String> actualChassisOptions = BrowserUtils.getElementsText(new VehiclesPage().chassisDDMenuOpts);
@@ -61,7 +61,6 @@ public class ChassisNumFilterStepDefs {
         System.out.println("menuOptions = " + menuOptions);
 
         Assert.assertEquals(null, menuOptions, actualChassisOptions);
-
     }
 
     @And("the user clicks More Than button")
@@ -71,7 +70,7 @@ public class ChassisNumFilterStepDefs {
 
     @And("enter numeric values")
     public void enterNumericValues() {
-        vehiclesPage.inputBox.sendKeys(ConfigurationReader.get("moreThanChassisNumber"));
+        vehiclesPage.inputBox.sendKeys(ConfigurationReader.get("requestedChassisNumber"));
         BrowserUtils.waitFor(1);
     }
 
@@ -92,8 +91,7 @@ public class ChassisNumFilterStepDefs {
         do {
             if (i == 1) {
                 chassisNumResList = BrowserUtils.getElementsText(vehiclesPage.chassisNumResults);
-            }
-            if (i > 1) {
+            } else if (i > 1) {
                 BrowserUtils.waitFor(3);
                 vehiclesPage.forwardPageArrow.click();
 
@@ -123,7 +121,7 @@ public class ChassisNumFilterStepDefs {
         System.out.println("chassisNumAsNum.size() = " + chassisNumAsNum.size());
         System.out.println("chassisNumAsNum = " + chassisNumAsNum);
 
-        int userEnteredValue = Integer.parseInt(ConfigurationReader.get("moreThanChassisNumber"));
+        int userEnteredValue = Integer.parseInt(ConfigurationReader.get("requestedChassisNumber"));
         boolean flag = true;
         for (Integer integer : chassisNumAsNum) {
             if (integer <= userEnteredValue) {
@@ -134,4 +132,75 @@ public class ChassisNumFilterStepDefs {
         Assert.assertTrue(flag);
     }
 
+    @And("the user clicks on Less Than button")
+    public void theUserClicksOnLessThanButton() {
+        vehiclesPage.lessThanButton.click();
+    }
+
+    @Then("the results should be less than specified value")
+    public void theResultsShouldBeLessThanSpecifiedValue() {
+        List<String> chassisNumResList = new ArrayList<>();
+
+        int i = 1;
+        String lastPageStr;
+        int lastPageAsNum;
+
+        do {
+            if (i == 1) {
+                chassisNumResList = BrowserUtils.getElementsText(vehiclesPage.chassisNumResults);
+            } else if (i > 1) {
+                BrowserUtils.waitFor(3);
+                vehiclesPage.forwardPageArrow.click();
+
+                BrowserUtils.waitFor(3);
+                List<String> chassisNumResList_Temp = BrowserUtils.getElementsText(vehiclesPage.chassisNumResults);
+
+                chassisNumResList.addAll(chassisNumResList_Temp);
+            }
+            i++;
+
+            lastPageStr = vehiclesPage.lastPageNum.getText().split(" ")[1];
+            lastPageAsNum = Integer.parseInt(lastPageStr);
+
+        } while (i <= lastPageAsNum);
+
+        List<String> result = new ArrayList<>();
+        for (String s : chassisNumResList) {
+            result.add(s.replaceAll(",", ""));
+        }
+
+        //Below line and for loop converts result List<String> to chassisNumAsNum List<Integer>
+        List<Integer> chassisNumAsNum = new ArrayList<>();
+        for (String str : result) {
+            chassisNumAsNum.add(Integer.parseInt(str));
+        }
+
+        System.out.println("chassisNumAsNum.size() = " + chassisNumAsNum.size());
+        System.out.println("chassisNumAsNum = " + chassisNumAsNum);
+
+        int userEnteredValue = Integer.parseInt(ConfigurationReader.get("requestedChassisNumber"));
+        boolean flag = true;
+        for (Integer integer : chassisNumAsNum) {
+            if (integer >= userEnteredValue) {
+                flag = false;
+                break;
+            }
+        }
+        Assert.assertTrue(flag);
+    }
+
+    @Then("only empty values should be displayed")
+    public void onlyEmptyValuesShouldBeDisplayed() {
+        boolean flag = true;
+        if(vehiclesPage.isClickable(vehiclesPage.noDataInformer)){
+            System.out.println("There is no data with empty chassis field");
+        } else {flag = false;}
+        Assert.assertTrue(flag);
+    }
+
+    @And("the user clicks on chassis number column headline button")
+    public void theUserClicksOnChassisNumberColumnHeadlineButton() {
+        vehiclesPage.chassisNumTableHead.click();
+        BrowserUtils.waitFor(3);
+    }
 }

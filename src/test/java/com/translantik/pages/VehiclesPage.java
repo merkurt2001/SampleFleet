@@ -16,6 +16,12 @@ import java.util.List;
 
 public class VehiclesPage extends BasePage {
 
+    @FindBy(className = "no-data")
+    public WebElement noDataInformer;
+
+    @FindBy(xpath = "//thead[@class='grid-header']//span[@class='grid-header-cell__label'][normalize-space()='Chassis Number']")
+    public WebElement chassisNumTableHead;
+
     @FindBy(xpath = "//label[@class='dib'][2]")
     public WebElement lastPageNum;
 
@@ -43,10 +49,14 @@ public class VehiclesPage extends BasePage {
     @FindBy (css = "a[data-value='2']")
     public WebElement moreThanButton;
 
+    @FindBy(css = "a[data-value='6']")
+    public WebElement lessThanButton;
+
     @FindBy(xpath = "(//input[@type='text'])[2]")
     public WebElement inputBox;
 
-    @FindBy(css = "button[class='btn btn-primary filter-update']")
+//    @FindBy(css = "button[class='btn btn-primary filter-update']")
+    @FindBy(xpath = "//button[normalize-space()='Update']")
     public WebElement updateButton;
 
     @FindBy (css = "[data-column-label='Chassis Number']")
