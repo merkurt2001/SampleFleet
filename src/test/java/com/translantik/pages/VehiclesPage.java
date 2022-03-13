@@ -108,6 +108,11 @@ public class VehiclesPage extends BasePage {
     @FindBy(xpath = "//td[@data-column-label='Driver']")
     public List<WebElement> columnText;
 
+    //Location column da yer alanlar (Salih)
+    public List<WebElement>filterColumnNames(String subMethodName){
+        return Driver.get().findElements(By.xpath("//td[@data-column-label='"+subMethodName+"']"));
+    }
+
     //her filtrenin altında çıkan metodlar
     public WebElement subMethodsOfTheFilter(String subMethodName){
         return Driver.get().findElement(By.xpath("//a[contains(text(),'"+subMethodName+"')]"));
