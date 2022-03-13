@@ -8,9 +8,9 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
-import org.openqa.selenium.WebElement;
 
 import java.util.List;
+import java.util.Locale;
 
 public class DriverFilterStepDefs extends BasePage {
     Filters filters = new Filters();
@@ -51,13 +51,13 @@ public class DriverFilterStepDefs extends BasePage {
     @When("the user clicks on default dropdown of the {string} filter which is {string} dropdown")
     public void the_user_clicks_on_default_dropdown_of_the_filter_which_is_dropdown(String string, String defaultMethodOfTheFilter) {
         vehiclesPage.waitUntilLoaderScreenDisappear();
-        vehiclesPage.defaultMethodOfTheFilter(defaultMethodOfTheFilter).click();
+        vehiclesPage.defaultMethodOfTheFilter(defaultMethodOfTheFilter.toLowerCase()).click();
     }
 
     @Given("the user clicks on {string} dropdown")
     public void the_user_clicks_on_dropdown(String subMethodName) {
         vehiclesPage.waitUntilLoaderScreenDisappear();
-        vehiclesPage.subMethodsOfTheFilter(subMethodName).click();
+        vehiclesPage.subMethodsOfTheFilter(subMethodName.toLowerCase()).click();
     }
 
     @Then("the Methods should be seen as below")
@@ -82,12 +82,12 @@ public class DriverFilterStepDefs extends BasePage {
     @Then("the results should contain the {string} keyword")
     public void the_results_should_contain_the_keyword(String keyword) {
         BrowserUtils.waitFor(2);
-        List<String> columnText = BrowserUtils.getElementsText(vehiclesPage.columnText);
+       List<String> columnText = BrowserUtils.getElementsText(vehiclesPage.columnText);
+        //List<String> columnText = BrowserUtils.getElementsText(vehiclesPage.filterColumnNames(subMethod));
 
         for (String s : columnText) {
             Assert.assertTrue(s.toLowerCase().contains(keyword.toLowerCase()));
-            {
-            }
+
         }
 
     }
@@ -99,8 +99,7 @@ public class DriverFilterStepDefs extends BasePage {
 
         for (String s : columnText) {
             Assert.assertFalse(s.toLowerCase().contains(keyword.toLowerCase()));
-            {
-            }
+
         }
     }
 
@@ -127,8 +126,7 @@ public class DriverFilterStepDefs extends BasePage {
 
         for (String s : columnText) {
             Assert.assertTrue(s.toLowerCase().endsWith(keyword.toLowerCase()));
-            {
-            }
+
         }
     }
 }
