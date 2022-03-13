@@ -4,6 +4,7 @@ import com.translantik.pages.BasePage;
 import com.translantik.pages.Filters;
 import com.translantik.pages.VehiclesPage;
 import com.translantik.utilities.BrowserUtils;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -19,7 +20,7 @@ public class DriverFilterStepDefs extends BasePage {
     @When("the user clicks on {string} filter under Fleet-Vehicles module")
     public void the_user_clicks_on_filter_under_module(String filterName) {
 
-        BrowserUtils.waitForClickablility(filters.filtersButton,10);
+        BrowserUtils.waitForClickablility(filters.filtersButton, 10);
 
         filters.filtersButton.click();
         filters.manageFiltersButton.click();
@@ -93,9 +94,9 @@ public class DriverFilterStepDefs extends BasePage {
     }
 
     @Then("the results should not contain the {string} keyword")
-    public void the_results_should_not_contain_the_keyword(String keyword) {
+    public void the_results_should_not_contain_the_keyword(String keyword, String subMethod) {
         BrowserUtils.waitFor(2);
-        List<String> columnText = BrowserUtils.getElementsText(vehiclesPage.columnText);
+        List<String> columnText = BrowserUtils.getElementsText(vehiclesPage.columnText3(subMethod));
 
         for (String s : columnText) {
             Assert.assertFalse(s.toLowerCase().contains(keyword.toLowerCase()));
@@ -129,4 +130,34 @@ public class DriverFilterStepDefs extends BasePage {
 
         }
     }
+
+    /*@Then("the results should not contain the {string} keyword {string}")
+    public void theResultsShouldNotContainTheKeyword(String keyword, String subMethod) {
+
+        BrowserUtils.waitFor(2);
+        List<String> columnText = BrowserUtils.getElementsText(vehiclesPage.columnText3(subMethod));
+
+        for (String s : columnText) {
+            Assert.assertFalse(s.toLowerCase().contains(keyword.toLowerCase()));
+            {
+            }
+        }
+    }/*
+
+
+     */
+    @Then("the results should not contain the {string} keyword {string}")
+    public void theResultsShouldNotContainTheKeyword(String keyword, String subMethod) {
+    BrowserUtils.waitFor(2);
+    List<String> columnText = BrowserUtils.getElementsText(vehiclesPage.columnText3(subMethod));
+
+        System.out.println("columnText = " + columnText);
+
+        for (String s : columnText) {
+        Assert.assertTrue(s.equals(keyword));
+
+    }
+
 }
+    }
+
