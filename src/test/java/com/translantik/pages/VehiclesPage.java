@@ -113,11 +113,19 @@ public class VehiclesPage extends BasePage {
         return Driver.get().findElements(By.xpath("//td[@data-column-label='"+subMethodName+"']"));
     }
 
+    //Driver column da yer alanlar (Salih)
+    @FindBy(xpath = "//td[@data-column-label='Location']")
+    public List<WebElement> columnText2;
+
+    //her filtrenin altında çıkan metodlar
+    public List<WebElement>columnText3(String subMethodName){
+        return Driver.get().findElements(By.xpath("//td[@data-column-label='"+subMethodName+"']"));
+    }
+
     //her filtrenin altında çıkan metodlar
     public WebElement subMethodsOfTheFilter(String subMethodName){
         return Driver.get().findElement(By.xpath("//a[contains(text(),'"+subMethodName+"')]"));
     }
-
 
     public String getTotalRecords(){
         String[] arr = totalRecordsText.getText().split(" ");

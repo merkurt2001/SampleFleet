@@ -11,7 +11,7 @@ Feature: As a store manager, I should be able to use the "Driver" filter under t
   @US11_AC2 @TRANS-1234
   Scenario: "Driver" filter should provide the methods shown as below in the examples
     When the user clicks on "Driver:All" button
-    And the user clicks on default dropdown of the "Driver" filter which is "contains" dropdown
+    And the user clicks on default dropdown of the "Driver" filter which is "Contains" dropdown
     Then the Methods should be seen as below
       | Contains         |
       | Does Not Contain |
@@ -28,7 +28,7 @@ Feature: As a store manager, I should be able to use the "Driver" filter under t
     When the user clicks on "Driver:All" button
     And the user clicks on default dropdown of the "Driver" filter which is "contains" dropdown
     When the user writes the "miss" keyword to "Contains" method input box and click update button
-    Then the results should contain the "miss" keyword
+    Then the "Driver" column results should contain the "miss" keyword
 
   @US11_AC4 @TRANS-1236
   Scenario: "Does Not Contain" method should give the results that does not contain the specified keyword
@@ -36,7 +36,7 @@ Feature: As a store manager, I should be able to use the "Driver" filter under t
     And the user clicks on default dropdown of the "Driver" filter which is "contains" dropdown
     And the user clicks on "does not contain" dropdown
     And the user writes the "miss" keyword to "does not contain" method input box and click update button
-    Then the results should not contain the "miss" keyword
+    Then the "Driver" column results should not contain the "miss" keyword
 
   @US11_AC5 @TRANS-1237
   Scenario: "Starts With" method should give the results that starts with the specified keyword
@@ -44,7 +44,7 @@ Feature: As a store manager, I should be able to use the "Driver" filter under t
     Given the user clicks on default dropdown of the "Driver" filter which is "contains" dropdown
     And the user clicks on "starts with" dropdown
     And the user writes the "ma" keyword to "starts with" method input box and click update button
-    Then the results should start with the "ma" keyword
+    Then the "Driver" column results should start with the "ma" keyword
 
   @US11_AC6 @TRANS-1238
   Scenario: "Ends With" method should give the results that ends with the specified keyword
@@ -52,4 +52,12 @@ Feature: As a store manager, I should be able to use the "Driver" filter under t
     And the user clicks on default dropdown of the "Driver" filter which is "contains" dropdown
     And the user clicks on "ends with" dropdown
     And the user writes the "er" keyword to "ends with" method input box and click update button
-    Then the results should end with the "er" keyword
+    Then the "Driver" column results should end with the "er" keyword
+
+  @US11_AC7 @TRANS-1257
+  Scenario: "Is Equal to" method should give the results that equals to specified keyword
+    When the user clicks on "Driver:All" button
+    And the user clicks on default dropdown of the "Driver" filter which is "contains" dropdown
+    And the user clicks on "Is Equal To" dropdown
+    And the user writes the "Mafalda Marks" keyword to "Is Equal To" method input box and click update button
+    Then the "Driver" column results should display "Mafalda Marks" keyword
