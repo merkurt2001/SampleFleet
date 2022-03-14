@@ -87,6 +87,15 @@ public class VehiclesPage extends BasePage {
     @FindBy (xpath = "//b")
     public WebElement filterCriteriaSelector; //her filtre seçildiğinde çıkan yanında All yazan filtre (Selçuk)
 
+
+    //View Per Page Filter (Ramazan)
+    @FindBy(xpath = "//a[@class='dropdown-item']")
+    public List<WebElement> viewfilter;
+
+    //View Per Page Filter values2(Ramazan)
+    @FindBy(className = ".dropdown-item")
+    public List<WebElement> viewfilterValues;
+
     //filtrede çıkan metod isimleri (Selçuk)
     @FindBy(css = ".dropdown-item.choice-value")
     public List<WebElement> methods;
