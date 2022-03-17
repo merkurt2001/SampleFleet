@@ -92,9 +92,29 @@ public class VehiclesPage extends BasePage {
     @FindBy(xpath = "//a[@class='dropdown-item']")
     public List<WebElement> viewfilter;
 
+
+    //Vehicle table rows (Ramazan)
+    @FindBy(xpath = "//table[@class='grid table-hover table table-bordered table-condensed']/tbody/tr")
+    public List <WebElement> vehicleTableRows;
+
     //View Per Page Filter values2(Ramazan)
     @FindBy(className = ".dropdown-item")
     public List<WebElement> viewfilterValues;
+
+    //Model Year (Ramazan)
+    @FindBy(xpath = "//span[.='Model Year']")
+    public WebElement modelYearLocator;
+    //Ramazan
+    @FindBy (xpath = "//div/button[@class= 'btn dropdown-toggle ']")
+    public WebElement button_locator;
+
+    //Ramazan Reset Button
+    @FindBy(xpath = "//a[@class='action btn reset-action mode-text-only']")
+    public WebElement resetButton_Locator;
+
+    //Ramazan
+    @FindBy(xpath = "//a[@class='grid-header-cell__link']//span[@class='caret']")
+    public  List<WebElement> spanCaret_Locator;
 
     //filtrede çıkan metod isimleri (Selçuk)
     @FindBy(css = ".dropdown-item.choice-value")
