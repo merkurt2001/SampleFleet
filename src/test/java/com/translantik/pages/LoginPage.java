@@ -11,6 +11,7 @@ import java.util.List;
 
 public class LoginPage extends BasePage {
 
+
     @FindBy(id = "prependedInput")
     public WebElement usernameInput;
 
